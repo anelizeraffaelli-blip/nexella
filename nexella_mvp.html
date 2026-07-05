@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="h-full bg-[#F6F5FA]">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexella | Ecossistema Inteligente de Oportunidades</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Montserrat (Principal) & Poppins (Secundária) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome para Ícones premium -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            purple: '#6F3CC3',
+                            lightPurple: '#A977F5',
+                            dark: '#4B4B4B',
+                            lightBg: '#F6F5FA',
+                            gold: '#D4AF37'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'Poppins', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .text-poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+        /* Efeito de brilho de IA (Ella) */
+        .ella-glow {
+            box-shadow: 0 0 30px rgba(169, 119, 245, 0.4);
+            animation: pulse-glow 3s infinite alternate;
+        }
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 20px rgba(111, 60, 195, 0.3); }
+            100% { box-shadow: 0 0 40px rgba(169, 119, 245, 0.6); }
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F6F5FA;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #6F3CC3;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="h-full text-[#4B4B4B] flex flex-col antialiased">
+
+    <script>
+        // Dados de Demonstração (Persistidos localmente para simular o banco de dados único)
+        const DEFAULT_USERS = [
+            {
+                id: "1",
+                nome: "Ana Paula Silva",
+                profissao: "Fotógrafa de Moda e Retratos",
+                empresa: "Ana Silva Estúdio",
+                cidade: "Cascavel",
+                bairro: "Centro",
+                descricao: "Especialista em fotografia feminina, ensaios corporativos e posicionamento de marca. Ajudo empreendedoras a comunicarem valor.",
+                whatsapp: "45999991234",
+                instagram: "@anasilvafoto",
+                oferece: "Fotografia profissional, edição, direção de poses",
+                procura: "Parcerias com maquiadoras, modelos e criadoras de marcas de roupas",
+                disponibilidade: "Imediata para projetos",
+                categoria: "Fotografia",
+                capitalDisponivel: "R$ 500 - R$ 2.000",
+                aprovado: true
+            },
+            {
+                id: "2",
+                nome: "Camila Antunes",
+                profissao: "Estilista e Designer de Moda",
+                empresa: "Maison Antunes",
+                cidade: "Cascavel",
+                bairro: "Neva",
+                descricao: "Marca autoral de roupas executivas e casuais para mulheres empoderadas. Busco expandir minha rede de revenda e divulgação.",
+                whatsapp: "45998884321",
+                instagram: "@maisonantunes",
+                oferece: "Roupas femininas, consultoria de estilo",
+                procura: "Fotógrafas, modelos, revendedoras e influenciadoras digitais",
+                disponibilidade: "Estoque pronto para parcerias",
+                categoria: "Moda e Beleza",
+                capitalDisponivel: "R$ 1.000 - R$ 5.000",
+                aprovado: true
+            },
+            {
+                id: "3",
+                nome: "Juliana Mendes",
+                profissao: "Corretora de Imóveis Premium",
+                empresa: "Mendes Imóveis Cascavel",
+                cidade: "Cascavel",
+                bairro: "Country",
+                descricao: "Conectando famílias aos melhores imóveis de alto padrão em Cascavel. Foco em atendimento personalizado.",
+                whatsapp: "45991112222",
+                instagram: "@jumendes.corretora",
+                oferece: "Consultoria imobiliária, captação de imóveis",
+                procura: "Arquitetas, designers de interiores, empresas de mudança e paisagistas",
+                disponibilidade: "Novos negócios",
+                categoria: "Imobiliário",
+                capitalDisponivel: "R$ 2.000 - R$ 10.000",
+                aprovado: true
+            },
+            {
+                id: "4",
+                nome: "Beatriz Rossi",
+                profissao: "Arquiteta e Designer de Interiores",
+                empresa: "Rossi Arquitetura",
+                cidade: "Cascavel",
+                bairro: "Cancelli",
+                descricao: "Criação de espaços comerciais inteligentes e corporativos que aumentam a produtividade e expressam a essência da marca.",
+                whatsapp: "45997775555",
+                instagram: "@rossi.arquitetura",
+                oferece: "Projetos arquitetônicos, design corporativo",
+                procura: "Corretoras de imóveis, fotógrafas de interiores, prestadoras de serviços de reforma",
+                disponibilidade: "Disponível para orçamentos",
+                categoria: "Arquitetura e Engenharia",
+                capitalDisponivel: "R$ 1.000 - R$ 3.000",
+                aprovado: true
+            },
+            {
+                id: "5",
+                nome: "Mariana Costa",
+                profissao: "Maquiadora Profissional e Designer de Sobrancelhas",
+                empresa: "Studio Mari Costa",
+                cidade: "Cascavel",
+                bairro: "Parque Verde",
+                descricao: "Realçando a beleza natural feminina para eventos, ensaios fotográficos e momentos corporativos.",
+                whatsapp: "45996667777",
+                instagram: "@maricostamakeup",
+                oferece: "Maquiagem profissional, pacotes para ensaios fotográficos",
+                procura: "Fotógrafas, consultoras de imagem e salões parceiros",
+                disponibilidade: "Finais de semana e agendas comerciais",
+                categoria: "Moda e Beleza",
+                capitalDisponivel: "Apenas Parcerias de Serviço",
+                aprovado: true
+            }
+        ];
+
+        const DEFAULT_OPPORTUNITIES = [
+            { id: "o1", autora: "Camila Antunes", titulo: "Procuro Fotógrafa para Nova Coleção", descricao: "Preciso de fotógrafa profissional em Cascavel para ensaio externo da coleção de primavera.", categoria: "Fotografia", data: "Hoje" },
+            { id: "o2", autora: "Juliana Mendes", titulo: "Busco Parceria com Designer de Interiores", descricao: "Quero indicar designers para meus clientes que adquirem imóveis na planta em Cascavel.", categoria: "Arquitetura e Engenharia", data: "Ontem" },
+            { id: "o3", autora: "Beatriz Rossi", titulo: "Procura-se Social Media focado em Estética", descricao: "Busco profissional para gerenciar o perfil do escritório de arquitetura, com foco em design limpo.", categoria: "Marketing e Design", data: "Há 2 dias" }
+        ];
+
+        // Inicializando bases locais
+        if(!localStorage.getItem("nexella_users")) {
+            localStorage.setItem("nexella_users", JSON.stringify(DEFAULT_USERS));
+        }
+        if(!localStorage.getItem("nexella_opportunities")) {
+            localStorage.setItem("nexella_opportunities", JSON.stringify(DEFAULT_OPPORTUNITIES));
+        }
+
+        // Estado do Usuário Logado
+        let currentUser = JSON.parse(localStorage.getItem("nexella_current_user")) || null;
+
+        function getUsers() {
+            return JSON.parse(localStorage.getItem("nexella_users"));
+        }
+        function saveUser(u) {
+            let list = getUsers();
+            list.push(u);
+            localStorage.setItem("nexella_users", JSON.stringify(list));
+        }
+        function updateUsersList(newList) {
+            localStorage.setItem("nexella_users", JSON.stringify(newList));
+        }
+    </script>
+
+    <header class="bg-white border-b border-gray-100 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="showView('home')">
+                <!-- SVG do Logotipo Nexella desenhado exatamente conforme o manual de identidade -->
+                <svg class="h-10 w-auto" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 20 L40 60 L60 20 L80 60" stroke="#6F3CC3" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M40 60 C50 70, 70 70, 80 50 C90 30, 70 10, 50 30 C30 50, 10 30, 20 10" stroke="#A977F5" stroke-width="4" stroke-linecap="round" fill="none"/>
+                    <circle cx="80" cy="35" r="3" fill="#D4AF37"/>
+                </svg>
+                <div>
+                    <span class="text-xl font-bold tracking-widest text-brand-purple" style="font-family: 'Montserrat', sans-serif;">NEXELLA</span>
+                    <p class="text-[8px] text-brand-dark uppercase tracking-wider font-semibold -mt-1">Oportunidades Femininas</p>
+                </div>
+            </div>
+
+            <!-- Navegação Principal para Desktop -->
+            <nav class="hidden md:flex items-center gap-8">
+                <button onclick="showView('home')" class="nav-link text-brand-dark font-medium hover:text-brand-purple transition-all flex items-center gap-2 py-2">
+                    <i class="fa-solid fa-compass text-sm"></i> Início
+                </button>
+                <button onclick="showView('mapa')" class="nav-link text-brand-dark font-medium hover:text-brand-purple transition-all flex items-center gap-2 py-2">
+                    <i class="fa-solid fa-map-location-dot text-sm"></i> Mapa das Empreendedoras
+                </button>
+                <button onclick="showView('oportunidades')" class="nav-link text-brand-dark font-medium hover:text-brand-purple transition-all flex items-center gap-2 py-2">
+                    <i class="fa-solid fa-briefcase text-sm"></i> Oportunidades
+                </button>
+                <button onclick="showView('eventos')" class="nav-link text-brand-dark font-medium hover:text-brand-purple transition-all flex items-center gap-2 py-2">
+                    <i class="fa-solid fa-calendar-day text-sm"></i> Eventos
+                </button>
+                <button onclick="showView('admin')" class="nav-link text-xs text-brand-purple bg-purple-50 px-3 py-1.5 rounded-full font-semibold border border-purple-100 hover:bg-purple-100 transition-all">
+                    <i class="fa-solid fa-sliders"></i> Admin
+                </button>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <div id="user-profile-badge" class="hidden items-center gap-2 bg-purple-50 p-1.5 rounded-full pr-4 border border-purple-100">
+                    <img id="badge-avatar" src="https://placehold.co/100x100/6F3CC3/ffffff?text=U" class="w-8 h-8 rounded-full border border-brand-purple object-cover" alt="Avatar">
+                    <span id="badge-name" class="text-xs font-semibold text-brand-purple">Minha Conta</span>
+                </div>
+                <button id="btn-login-header" onclick="showView('onboarding')" class="bg-brand-purple text-white hover:bg-opacity-90 transition-all font-semibold text-xs px-5 py-2.5 rounded-full shadow-sm">
+                    Entrar / Cadastrar
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-6 py-2 flex justify-around items-center z-40 shadow-lg rounded-t-2xl">
+        <button onclick="showView('home')" class="flex flex-col items-center text-brand-dark hover:text-brand-purple transition-all">
+            <i class="fa-solid fa-compass text-lg"></i>
+            <span class="text-[9px] mt-0.5">Início</span>
+        </button>
+        <button onclick="showView('mapa')" class="flex flex-col items-center text-brand-dark hover:text-brand-purple transition-all">
+            <i class="fa-solid fa-map-location-dot text-lg"></i>
+            <span class="text-[9px] mt-0.5">Mapa</span>
+        </button>
+        <button onclick="showView('oportunidades')" class="flex flex-col items-center text-brand-dark hover:text-brand-purple transition-all">
+            <i class="fa-solid fa-briefcase text-lg"></i>
+            <span class="text-[9px] mt-0.5">Vagas</span>
+        </button>
+        <button onclick="showView('eventos')" class="flex flex-col items-center text-brand-dark hover:text-brand-purple transition-all">
+            <i class="fa-solid fa-calendar-day text-lg"></i>
+            <span class="text-[9px] mt-0.5">Eventos</span>
+        </button>
+        <button onclick="showView('admin')" class="flex flex-col items-center text-brand-dark hover:text-brand-purple transition-all">
+            <i class="fa-solid fa-sliders text-lg"></i>
+            <span class="text-[9px] mt-0.5">Painel</span>
+        </button>
+    </div>
+
+    <!-- MAIN APP CANVAS -->
+    <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 mb-16 md:mb-0">
+        
+        <section id="view-onboarding" class="hidden max-w-2xl mx-auto bg-white rounded-3xl p-8 shadow-xl border border-gray-100 transition-all">
+            <div class="text-center mb-8">
+                <span class="text-xs font-bold text-brand-purple tracking-widest uppercase bg-purple-50 px-3 py-1 rounded-full border border-purple-100">Bem-vinda ao Futuro</span>
+                <h2 class="text-3xl font-extrabold text-brand-purple mt-4">Sua Jornada Começa Aqui</h2>
+                <p class="text-sm text-brand-dark mt-2 text-poppins">NEXELLA não é rede social. A tecnologia trabalha para encontrar o que você precisa em Cascavel e no Brasil.</p>
+            </div>
+
+            <!-- Wizard Form -->
+            <form id="onboarding-form" onsubmit="handleOnboarding(event)" class="space-y-6">
+                <!-- Passo 1 -->
+                <div class="space-y-4">
+                    <label class="block text-sm font-bold text-brand-purple uppercase tracking-wider"><i class="fa-solid fa-magnifying-glass mr-2"></i>1. O que você procura hoje na Nexella?</label>
+                    <select id="onb-procura" required class="w-full border-2 border-gray-100 rounded-2xl p-4 focus:border-brand-purple outline-none transition-all text-sm font-medium">
+                        <option value="">Selecione seu objetivo principal...</option>
+                        <option value="Quero encontrar clientes">Quero encontrar novos clientes e fechar vendas</option>
+                        <option value="Quero fazer parcerias">Quero fazer parcerias estratégicas</option>
+                        <option value="Quero divulgar meu negócio">Quero divulgar meu negócio</option>
+                        <option value="Quero contratar outra empreendedora">Quero contratar uma empreendedora/prestadora</option>
+                        <option value="Quero colaborar com outras mulheres">Quero colaborar com outras mulheres</option>
+                        <option value="Quero renda extra">Busco renda extra ou revenda</option>
+                    </select>
+                </div>
+
+                <!-- Passo 2 -->
+                <div class="space-y-4">
+                    <label class="block text-sm font-bold text-brand-purple uppercase tracking-wider"><i class="fa-solid fa-gift mr-2"></i>2. O que você oferece?</label>
+                    <input type="text" id="onb-oferece" required placeholder="Ex: Fotografia de moda, Maquiagem profissional, Roupas de grife..." class="w-full border-2 border-gray-100 rounded-2xl p-4 focus:border-brand-purple outline-none transition-all text-sm">
+                </div>
+
+                <!-- Passo 3: Geolocalização focada em Cascavel -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-brand-dark uppercase tracking-wide">Cidade</label>
+                        <input type="text" id="onb-cidade" required value="Cascavel" class="w-full border-2 border-gray-100 rounded-2xl p-4 focus:border-brand-purple outline-none transition-all text-sm">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-brand-dark uppercase tracking-wide">Bairro de atuação</label>
+                        <select id="onb-bairro" required class="w-full border-2 border-gray-100 rounded-2xl p-4 focus:border-brand-purple outline-none transition-all text-sm font-medium">
+                            <option value="Centro">Centro</option>
+                            <option value="Neva">Neva</option>
+                            <option value="Country">Country</option>
+                            <option value="Cancelli">Cancelli</option>
+                            <option value="Parque Verde">Parque Verde</option>
+                            <option value="Coqueiral">Coqueiral</option>
+                            <option value="Santa Cruz">Santa Cruz</option>
+                            <option value="Universitário">Universitário</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Passo 4 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-brand-dark uppercase tracking-wide">Sua Área / Profissão</label>
+                        <select id="onb-categoria" required class="w-full border-2 border-gray-100 rounded-2xl p-4 focus:border-brand-purple outline-none transition-all text-sm font-medium">
+                            <option value="Moda e Beleza">Moda e Beleza</option>
+                            <option value="Fotografia">Fotografia</option>
+                            <option value="Arquitetura e Engenharia">Arquitetura e Engenharia</option>
+                            <option value="Imobiliário">Imobiliário</option>
+                            <option value="Marketing e Design">Marketing e Design</option>
+                            <option value="Saúde e Bem-estar">Saúde e Bem-estar</option>
+                            <option value="Gastronomia">Gastronomia</option>
+                            <option value="Tecnologia e Serviços">Tecnologia e Serviços</option>
+                        </select>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-brand-dark uppercase tracking-wide">Capacidade disponível para investimento</label>
+                        <select id="onb-capital" required class="w-full border-2 border-gray-100 rounded-2xl p-4 focus:border-brand-purple outline-none transition-all text-sm font-medium">
+                            <option value="Apenas Parcerias de Serviço">Apenas Parcerias de Serviço</option>
+                            <option value="Até R$ 500">Até R$ 500</option>
+                            <option value="R$ 500 - R$ 2.000">R$ 500 - R$ 2.000</option>
+                            <option value="R$ 2.000 - R$ 5.000">R$ 2.000 - R$ 5.000</option>
+                            <option value="Mais de R$ 5.000">Mais de R$ 5.000</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Passo 5: Perfil Pessoal -->
+                <div class="border-t border-gray-100 pt-6 space-y-4">
+                    <h3 class="text-sm font-bold text-brand-purple uppercase tracking-wider mb-2">Seus dados para conexões</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-brand-dark uppercase tracking-wide">Nome Completo</label>
+                            <input type="text" id="onb-nome" required placeholder="Como deseja ser chamada" class="w-full border-2 border-gray-100 rounded-2xl p-4 focus:border-brand-purple outline-none transition-all text-sm">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-brand-dark uppercase tracking-wide">Nome do seu negócio / Marca</label>
+                            <input type="text" id="onb-empresa" placeholder="Se possuir" class="w-full border-2 border-gray-100 rounded-2xl p-4 focus:border-brand-purple outline-none transition-all text-sm">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-brand-dark uppercase tracking-wide">WhatsApp de negócios</label>
+                            <input type="text" id="onb-whatsapp" required placeholder="Ex: 45999998888" class="w-full border-2 border-gray-100 rounded-2xl p-4 focus:border-brand-purple outline-none transition-all text-sm">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-brand-dark uppercase tracking-wide">Instagram comercial</label>
+                            <input type="text" id="onb-instagram" required placeholder="Ex: @minhamarca" class="w-full border-2 border-gray-100 rounded-2xl p-4 focus:border-brand-purple outline-none transition-all text-sm">
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-brand-dark uppercase tracking-wide">Sua Mini Bio corporativa</label>
+                        <textarea id="onb-descricao" rows="3" required placeholder="Diga brevemente como você gera valor para suas parcerias ou clientes..." class="w-full border-2 border-gray-100 rounded-2xl p-4 focus:border-brand-purple outline-none transition-all text-sm"></textarea>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 bg-purple-50 p-4 rounded-2xl border border-purple-100">
+                    <i class="fa-solid fa-user-shield text-brand-purple text-xl"></i>
+                    <p class="text-xs text-brand-purple font-medium">Os cadastros são únicos e unificados. Seus dados estão protegidos e prontos para quando nosso aplicativo Android/iOS for lançado.</p>
+                </div>
+
+                <button type="submit" class="w-full bg-brand-purple hover:bg-opacity-95 text-white font-bold p-5 rounded-2xl shadow-lg transition-all transform hover:-translate-y-1">
+                    Ativar Minha Conta Nexella & Conectar
+                </button>
+            </form>
+        </section>
+
+        <section id="view-home" class="space-y-12">
+            <!-- Header Inteligente -->
+            <div class="text-center max-w-3xl mx-auto space-y-4">
+                <span class="text-xs font-bold tracking-widest text-brand-purple uppercase bg-purple-50 px-4 py-1.5 rounded-full border border-purple-100 inline-block">Cascavel Hub Nacional</span>
+                <h1 class="text-4xl md:text-5xl font-black text-brand-purple leading-tight" style="font-family: 'Montserrat', sans-serif;">Plataforma de Oportunidades Reais para Mulheres</h1>
+                <p class="text-sm md:text-base text-brand-dark font-medium leading-relaxed text-poppins">Não jogue tempo fora conversando à toa. Use nossa tecnologia de ponta para conectar com parcerias, clientes e fornecedoras ideais.</p>
+            </div>
+
+            <!-- BOTÃO CENTRAL PRINCIPAL: ELLA AI -->
+            <div class="flex flex-col items-center justify-center py-6">
+                <button onclick="triggerEllaScanner()" class="ella-glow bg-brand-purple hover:bg-opacity-95 text-white font-bold px-8 py-6 rounded-full flex items-center gap-4 transition-all transform hover:scale-105 active:scale-95 text-base md:text-lg border-2 border-brand-lightPurple/40 relative overflow-hidden group">
+                    <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
+                    <i class="fa-solid fa-wand-magic-sparkles text-brand-gold text-2xl animate-bounce"></i>
+                    <span>✨ Encontrar minha próxima oportunidade</span>
+                </button>
+                <p class="text-[11px] text-[#8C8C8C] mt-3 font-semibold uppercase tracking-wider"><i class="fa-solid fa-robot mr-1"></i> A consultora de IA Ella vai analisar seu perfil e gerar matches automáticos</p>
+            </div>
+
+            <!-- GRID PRINCIPAL DE OPÇÕES DA HOME (LIMPA, ESTILO STARTUP) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- ✨ Oportunidades para você -->
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 hover:shadow-md transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-bold text-brand-purple uppercase tracking-wider bg-purple-50 px-3 py-1 rounded-full"><i class="fa-solid fa-star mr-1"></i> Para Você</span>
+                            <span class="text-xs text-brand-gold font-bold"><i class="fa-solid fa-bolt"></i> Sugerido</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-brand-purple">Recomendações da Ella</h3>
+                        <p class="text-xs text-brand-dark mt-2 leading-relaxed mb-4 text-poppins">Nossa IA selecionou oportunidades de conexões locais baseadas na sua área de atuação atual.</p>
+                        
+                        <!-- Lista dinâmica rápida -->
+                        <div id="quick-matches" class="space-y-3">
+                            <!-- Inserido dinamicamente via JS -->
+                        </div>
+                    </div>
+                    <button onclick="showView('oportunidades')" class="mt-4 w-full text-center text-xs font-bold text-brand-purple border border-purple-100 hover:bg-purple-50 py-3 rounded-2xl transition-all">Ver todas as oportunidades</button>
+                </div>
+
+                <!-- ✨ Mulheres Próximas (Cascavel) -->
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 hover:shadow-md transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-bold text-brand-purple uppercase tracking-wider bg-purple-50 px-3 py-1 rounded-full"><i class="fa-solid fa-location-dot mr-1"></i> Mapa Local</span>
+                            <span class="text-xs font-bold text-brand-dark">Cascavel, PR</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-brand-purple">Empreendedoras Próximas</h3>
+                        <p class="text-xs text-brand-dark mt-2 leading-relaxed mb-4 text-poppins">Descubra mulheres ativas gerando riqueza nos bairros Centro, Neva, Country e proximidades.</p>
+                        
+                        <div class="bg-gray-50 rounded-2xl p-4 border border-gray-100 text-center relative overflow-hidden flex items-center justify-center h-28">
+                            <div class="absolute inset-0 bg-[radial-gradient(#6f3cc3_1px,transparent_1px)] [background-size:16px_16px] opacity-20"></div>
+                            <div class="z-10">
+                                <span class="text-2xl font-black text-brand-purple" id="nearby-count">5</span>
+                                <p class="text-[10px] uppercase font-bold text-brand-dark mt-1">Líderes Registradas</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="showView('mapa')" class="mt-4 w-full text-center text-xs font-bold text-brand-purple bg-purple-50 hover:bg-brand-purple hover:text-white py-3 rounded-2xl transition-all">Abrir Mapa de Conexões</button>
+                </div>
+
+                <!-- ✨ Eventos e Conexões Rápidas -->
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 hover:shadow-md transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-bold text-brand-purple uppercase tracking-wider bg-purple-50 px-3 py-1 rounded-full"><i class="fa-solid fa-calendar-week mr-1"></i> Agenda</span>
+                            <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">Confirmados</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-brand-purple">Rodadas de Negócios</h3>
+                        <p class="text-xs text-brand-dark mt-2 leading-relaxed mb-4 text-poppins">Nossos encontros são focados puramente em pitch de conexão e parcerias ativas.</p>
+                        
+                        <div class="space-y-3">
+                            <div class="flex gap-3 items-center border-l-2 border-brand-gold pl-3 py-1">
+                                <div class="text-center">
+                                    <span class="block text-xs font-bold text-brand-purple">18</span>
+                                    <span class="block text-[8px] uppercase font-bold text-brand-dark">Jul</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold text-brand-purple">Café & Conexão Nexella</h4>
+                                    <p class="text-[10px] text-brand-dark">Cascavel, Centro</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="showView('eventos')" class="mt-4 w-full text-center text-xs font-bold text-brand-purple border border-purple-100 hover:bg-purple-50 py-3 rounded-2xl transition-all font-medium">Visualizar Calendário Completo</button>
+                </div>
+
+            </div>
+
+            <!-- CONEXÕES DE SUCESSO RECENTES -->
+            <div class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm space-y-4">
+                <h3 class="text-sm font-bold text-brand-purple uppercase tracking-widest"><i class="fa-solid fa-users-viewfinder mr-2"></i>Histórico do Ecossistema</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="p-4 bg-purple-50 rounded-2xl border border-purple-100/50 flex items-center gap-3">
+                        <i class="fa-solid fa-handshake-simple text-brand-purple text-xl"></i>
+                        <div>
+                            <span class="block text-sm font-bold text-brand-purple">120+ Conexões</span>
+                            <span class="text-[10px] text-brand-dark">Estabelecidas com sucesso</span>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-purple-50 rounded-2xl border border-purple-100/50 flex items-center gap-3">
+                        <i class="fa-solid fa-city text-brand-purple text-xl"></i>
+                        <div>
+                            <span class="block text-sm font-bold text-brand-purple">Cascavel Hub</span>
+                            <span class="text-[10px] text-brand-dark">Validando MVP inicial</span>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-purple-50 rounded-2xl border border-purple-100/50 flex items-center gap-3">
+                        <i class="fa-solid fa-cubes text-brand-purple text-xl"></i>
+                        <div>
+                            <span class="block text-sm font-bold text-brand-purple">100% Organizado</span>
+                            <span class="text-[10px] text-brand-dark">Sem spam ou chats inúteis</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-ella" class="hidden max-w-4xl mx-auto space-y-8 transition-all">
+            <div class="bg-gradient-to-br from-brand-purple to-brand-lightPurple text-white rounded-3xl p-8 shadow-xl relative overflow-hidden ella-glow">
+                <div class="absolute -right-10 -bottom-10 opacity-10">
+                    <i class="fa-solid fa-robot text-9xl"></i>
+                </div>
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="bg-white p-3 rounded-2xl text-brand-purple shadow-md">
+                        <i class="fa-solid fa-wand-magic-sparkles text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs uppercase tracking-widest font-extrabold text-brand-gold">Mecanismo Proprietário</span>
+                        <h2 class="text-2xl font-black">Ella: Consultoria de Matchmaking Inteligente</h2>
+                    </div>
+                </div>
+                <p class="text-sm text-purple-100 max-w-2xl text-poppins leading-relaxed">Eu escaneio as necessidades e ofertas de todas as usuárias de Cascavel para conectar você instantaneamente à profissional correta. Sem enrolação.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Painel esquerdo: Seu Perfil Atual para Análise -->
+                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm space-y-4">
+                    <h3 class="text-sm font-bold text-brand-purple uppercase tracking-wider border-b border-gray-100 pb-3">Seus Dados Analisados</h3>
+                    <div class="space-y-3 text-xs">
+                        <div>
+                            <span class="block font-semibold text-brand-dark">O que você oferece:</span>
+                            <p id="ella-user-offers" class="text-brand-purple font-medium mt-1 bg-purple-50 p-2.5 rounded-xl border border-purple-100"></p>
+                        </div>
+                        <div>
+                            <span class="block font-semibold text-brand-dark">O que você busca:</span>
+                            <p id="ella-user-seeks" class="text-brand-purple font-medium mt-1 bg-purple-50 p-2.5 rounded-xl border border-purple-100"></p>
+                        </div>
+                        <div>
+                            <span class="block font-semibold text-brand-dark">Bairro</span>
+                            <p id="ella-user-bairro" class="text-brand-purple font-semibold mt-0.5"></p>
+                        </div>
+                    </div>
+                    <button onclick="showView('onboarding')" class="w-full text-center text-xs font-bold text-[#8C8C8C] hover:text-brand-purple py-2 border-t border-gray-100 mt-4 block transition-all">Atualizar meus dados</button>
+                </div>
+
+                <!-- Painel Direito: Matches Cruzados Prontos -->
+                <div class="lg:col-span-2 bg-white p-6 rounded-3xl border border-gray-100 shadow-sm space-y-6">
+                    <div class="flex items-center justify-between border-b border-gray-100 pb-3">
+                        <h3 class="text-sm font-bold text-brand-purple uppercase tracking-wider">Combinações Perfeitas em Cascavel</h3>
+                        <span class="text-xs bg-emerald-50 text-emerald-700 font-bold px-3 py-1 rounded-full border border-emerald-100">Alto Match</span>
+                    </div>
+
+                    <div id="ella-match-results" class="space-y-4">
+                        <!-- Inserido dinamicamente de acordo com o cruzamento das áreas -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-mapa" class="hidden space-y-6 transition-all">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-2xl font-black text-brand-purple uppercase tracking-wider">Mapa Inteligente de Conexões</h2>
+                    <p class="text-xs text-brand-dark mt-1 text-poppins">Filtre as parcerias por proximidade, cidade e área de atuação em Cascavel.</p>
+                </div>
+
+                <!-- Filtros Rápidos -->
+                <div class="flex flex-wrap items-center gap-3">
+                    <select id="filter-bairro" onchange="applyMapFilters()" class="border border-gray-200 rounded-full px-4 py-2 text-xs font-semibold focus:outline-none focus:border-brand-purple">
+                        <option value="">Todos os Bairros</option>
+                        <option value="Centro">Centro</option>
+                        <option value="Neva">Neva</option>
+                        <option value="Country">Country</option>
+                        <option value="Cancelli">Cancelli</option>
+                        <option value="Parque Verde">Parque Verde</option>
+                    </select>
+                    <select id="filter-categoria" onchange="applyMapFilters()" class="border border-gray-200 rounded-full px-4 py-2 text-xs font-semibold focus:outline-none focus:border-brand-purple">
+                        <option value="">Todas as Categorias</option>
+                        <option value="Moda e Beleza">Moda e Beleza</option>
+                        <option value="Fotografia">Fotografia</option>
+                        <option value="Arquitetura e Engenharia">Arquitetura e Engenharia</option>
+                        <option value="Imobiliário">Imobiliário</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Layout do Mapa -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Representação Gráfica / Visual do Mapa Premium -->
+                <div class="lg:col-span-2 bg-white rounded-3xl p-6 border border-gray-100 shadow-sm relative overflow-hidden min-h-[400px] flex flex-col justify-between">
+                    <div class="absolute inset-0 bg-[radial-gradient(#6f3cc3_2px,transparent_2px)] [background-size:24px_24px] opacity-10"></div>
+                    
+                    <!-- Simulação de Pontos Interativos no Mapa de Cascavel -->
+                    <div class="absolute inset-0 flex items-center justify-center p-8">
+                        <div class="relative w-full h-full" id="map-point-canvas">
+                            <!-- Centro -->
+                            <div onclick="selectMapUser('1')" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer group">
+                                <div class="w-10 h-10 bg-brand-purple rounded-full flex items-center justify-center text-white font-bold text-xs shadow-lg transform hover:scale-110 transition-all border-4 border-white">AP</div>
+                                <span class="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-brand-purple text-white text-[9px] px-2 py-0.5 rounded-full shadow-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all font-semibold">Ana Silva (Centro)</span>
+                            </div>
+                            <!-- Neva -->
+                            <div onclick="selectMapUser('2')" class="absolute top-2/3 left-1/3 cursor-pointer group">
+                                <div class="w-10 h-10 bg-brand-lightPurple rounded-full flex items-center justify-center text-white font-bold text-xs shadow-lg transform hover:scale-110 transition-all border-4 border-white">CA</div>
+                                <span class="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-brand-purple text-white text-[9px] px-2 py-0.5 rounded-full shadow-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all font-semibold">Camila (Neva)</span>
+                            </div>
+                            <!-- Country -->
+                            <div onclick="selectMapUser('3')" class="absolute top-1/4 left-2/3 cursor-pointer group">
+                                <div class="w-10 h-10 bg-brand-purple rounded-full flex items-center justify-center text-white font-bold text-xs shadow-lg transform hover:scale-110 transition-all border-4 border-white">JM</div>
+                                <span class="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-brand-purple text-white text-[9px] px-2 py-0.5 rounded-full shadow-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all font-semibold">Juliana (Country)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="z-10 bg-white/80 backdrop-blur-sm px-4 py-2.5 rounded-2xl border border-gray-100 self-start text-xs font-semibold text-brand-purple">
+                        <i class="fa-solid fa-location-crosshairs mr-1"></i> Mostrando empreendedoras em Cascavel, PR
+                    </div>
+                </div>
+
+                <!-- Painel Lateral: Usuárias Filtradas e Cards de Perfis -->
+                <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-sm font-bold text-brand-purple uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">Resultado da Busca</h3>
+                        <div id="map-users-list" class="space-y-4 max-h-[350px] overflow-y-auto pr-2">
+                            <!-- Preenchido via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-oportunidades" class="hidden space-y-8 transition-all">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-2xl font-black text-brand-purple uppercase tracking-wider">Área de Oportunidades Ativas</h2>
+                    <p class="text-xs text-brand-dark mt-1 text-poppins">Publique demandas reais do seu negócio ou conecte-se com quem precisa dos seus serviços hoje.</p>
+                </div>
+                <!-- Botão de Nova Oportunidade -->
+                <button onclick="toggleOpportunityModal(true)" class="bg-brand-purple hover:bg-opacity-95 text-white font-bold px-6 py-3 rounded-full text-xs shadow-sm transition-all transform hover:-translate-y-0.5">
+                    <i class="fa-solid fa-plus mr-1"></i> Publicar Nova Oportunidade
+                </button>
+            </div>
+
+            <!-- Grid de Cards de Oportunidades -->
+            <div id="opportunities-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Inserido via JS -->
+            </div>
+
+            <!-- MODAL: Publicar Oportunidade (Design Elegante e Limpo) -->
+            <div id="modal-opportunity" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                <div class="bg-white rounded-3xl p-8 max-w-lg w-full space-y-6 shadow-xl relative">
+                    <button onclick="toggleOpportunityModal(false)" class="absolute top-6 right-6 text-gray-400 hover:text-brand-purple text-lg"><i class="fa-solid fa-xmark"></i></button>
+                    
+                    <div>
+                        <h3 class="text-lg font-bold text-brand-purple uppercase tracking-wide">Publicar Nova Oportunidade</h3>
+                        <p class="text-xs text-brand-dark mt-1 text-poppins">Seja direta e diga com precisão o que você precisa contratar, comprar ou fazer parceria hoje.</p>
+                    </div>
+
+                    <form id="opportunity-form" onsubmit="handleNewOpportunity(event)" class="space-y-4">
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-brand-dark uppercase tracking-wide">Título da oportunidade</label>
+                            <input type="text" id="opp-titulo" required placeholder="Ex: Procuro maquiadora para ensaio dia 15" class="w-full border-2 border-gray-100 rounded-2xl p-4 focus:border-brand-purple outline-none transition-all text-sm">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-brand-dark uppercase tracking-wide">Categoria relacionada</label>
+                            <select id="opp-categoria" required class="w-full border-2 border-gray-100 rounded-2xl p-4 focus:border-brand-purple outline-none transition-all text-sm font-medium">
+                                <option value="Fotografia">Fotografia</option>
+                                <option value="Moda e Beleza">Moda e Beleza</option>
+                                <option value="Arquitetura e Engenharia">Arquitetura e Engenharia</option>
+                                <option value="Marketing e Design">Marketing e Design</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-brand-dark uppercase tracking-wide">Descreva os detalhes</label>
+                            <textarea id="opp-descricao" rows="4" required placeholder="Forneça detalhes claros sobre o que você precisa, prazo, local de entrega e orçamento..." class="w-full border-2 border-gray-100 rounded-2xl p-4 focus:border-brand-purple outline-none transition-all text-sm"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-brand-purple hover:bg-opacity-95 text-white font-bold p-4 rounded-2xl shadow-lg transition-all">
+                            Publicar Oportunidade no Painel
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-eventos" class="hidden space-y-8 transition-all">
+            <div>
+                <h2 class="text-2xl font-black text-brand-purple uppercase tracking-wider">Rodadas de Negócios & Eventos</h2>
+                <p class="text-xs text-brand-dark mt-1 text-poppins">Espaço dedicado ao fortalecimento do networking qualificado em Cascavel.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Evento 1 -->
+                <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm flex flex-col md:flex-row gap-6 hover:shadow-md transition-all">
+                    <div class="bg-brand-purple text-white p-6 rounded-2xl text-center flex flex-col justify-center items-center min-w-[120px] h-32 md:h-auto">
+                        <span class="text-3xl font-black">18</span>
+                        <span class="text-xs uppercase tracking-widest font-bold text-brand-gold mt-1">JULHO</span>
+                        <span class="text-[9px] font-semibold opacity-80 mt-2">14:00 - 18:00</span>
+                    </div>
+                    <div class="flex flex-col justify-between flex-grow">
+                        <div>
+                            <span class="text-[10px] font-bold text-brand-purple uppercase tracking-widest bg-purple-50 px-2 py-0.5 rounded-full">Café & Negócios</span>
+                            <h3 class="text-lg font-bold text-brand-purple mt-2">1º Encontro de Networking Nexella</h3>
+                            <p class="text-xs text-brand-dark mt-1 text-poppins">Cascavel, PR - Bairro Centro. Rodada rápida de pitchs de 1 minuto para todas as participantes.</p>
+                        </div>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="text-[11px] font-semibold text-brand-gold bg-amber-50 px-2.5 py-1 rounded-full"><i class="fa-solid fa-ticket mr-1"></i> Gratuito no MVP</span>
+                            <button onclick="registerEvent()" class="text-xs bg-brand-purple text-white px-4 py-2 rounded-full font-bold hover:bg-opacity-90 transition-all">Garantir Cadeira</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Evento 2 (Preparação/Breve) -->
+                <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm flex flex-col md:flex-row gap-6 opacity-75 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-white/40 backdrop-blur-[1px] flex items-center justify-center z-10">
+                        <span class="bg-brand-purple/95 text-white text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider shadow-md border border-brand-lightPurple/20"><i class="fa-solid fa-lock mr-1.5"></i> Em Breve</span>
+                    </div>
+                    <div class="bg-[#8C8C8C] text-white p-6 rounded-2xl text-center flex flex-col justify-center items-center min-w-[120px]">
+                        <span class="text-3xl font-black">12</span>
+                        <span class="text-xs uppercase tracking-widest font-bold mt-1">AGOSTO</span>
+                    </div>
+                    <div class="flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] font-bold text-brand-dark uppercase tracking-widest bg-gray-100 px-2 py-0.5 rounded-full">Rodada Exclusiva</span>
+                            <h3 class="text-lg font-bold text-brand-purple mt-2">Nexella Summit Cascavel</h3>
+                            <p class="text-xs text-brand-dark mt-1 text-poppins">Encontro de escala para mais de 150 empreendedoras com mentoria de vendas coletiva e parcerias.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-admin" class="hidden space-y-8 transition-all">
+            <div class="flex items-center justify-between border-b border-gray-100 pb-4">
+                <div>
+                    <h2 class="text-2xl font-black text-brand-purple uppercase tracking-wider">Painel Administrativo Nexella</h2>
+                    <p class="text-xs text-brand-dark mt-1 text-poppins">Controle de qualidade e auditoria do ecossistema para evitar perfis fakes ou spam.</p>
+                </div>
+                <div class="bg-brand-purple text-white px-4 py-2 rounded-full text-xs font-bold">
+                    Modo Administrador
+                </div>
+            </div>
+
+            <!-- Estatísticas Administrativas -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="bg-white p-5 rounded-3xl border border-gray-100 shadow-sm text-center">
+                    <span class="block text-2xl font-black text-brand-purple" id="adm-total-users">0</span>
+                    <span class="text-[10px] uppercase font-bold text-brand-dark mt-1">Total de Membros</span>
+                </div>
+                <div class="bg-white p-5 rounded-3xl border border-gray-100 shadow-sm text-center">
+                    <span class="block text-2xl font-black text-emerald-600" id="adm-pending-users">0</span>
+                    <span class="text-[10px] uppercase font-bold text-brand-dark mt-1">Cadastros Pendentes</span>
+                </div>
+                <div class="bg-white p-5 rounded-3xl border border-gray-100 shadow-sm text-center">
+                    <span class="block text-2xl font-black text-brand-gold" id="adm-total-matches">48</span>
+                    <span class="text-[10px] uppercase font-bold text-brand-dark mt-1">Pontes de Negócios</span>
+                </div>
+                <div class="bg-white p-5 rounded-3xl border border-gray-100 shadow-sm text-center">
+                    <span class="block text-2xl font-black text-brand-purple">Cascavel, PR</span>
+                    <span class="text-[10px] uppercase font-bold text-brand-dark mt-1">Polo Lançamento</span>
+                </div>
+            </div>
+
+            <!-- Tabela de Usuárias -->
+            <div class="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
+                <div class="p-6 border-b border-gray-100 flex items-center justify-between">
+                    <h3 class="text-sm font-bold text-brand-purple uppercase tracking-wider">Auditar Cadastros de Usuárias</h3>
+                    <button onclick="resetAllData()" class="text-xs text-rose-500 font-semibold hover:underline">Reiniciar Base de Demonstração</button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-50 text-[10px] uppercase tracking-wider font-bold text-brand-dark">
+                                <th class="p-4">Nome / Negócio</th>
+                                <th class="p-4">O que oferece / Procura</th>
+                                <th class="p-4">Local</th>
+                                <th class="p-4 text-center">Status</th>
+                                <th class="p-4 text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-table-body" class="divide-y divide-gray-100 text-xs">
+                            <!-- Inserido dinamicamente via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- TOAST NOTIFICATION SYSTEM (Substitui alerts do navegador de forma elegante) -->
+    <div id="toast-container" class="fixed top-20 right-4 z-50 pointer-events-none flex flex-col gap-2"></div>
+
+    <script>
+        // Sistema de Toast Premium
+        function showToast(title, message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `p-4 rounded-2xl shadow-lg border text-xs max-w-sm pointer-events-auto transition-all duration-300 transform translate-x-12 opacity-0 flex items-start gap-3 bg-white ${
+                type === 'success' ? 'border-emerald-100 text-emerald-800' : 'border-rose-100 text-rose-800'
+            }`;
+            
+            const icon = type === 'success' 
+                ? '<i class="fa-solid fa-circle-check text-emerald-500 text-lg"></i>' 
+                : '<i class="fa-solid fa-circle-exclamation text-rose-500 text-lg"></i>';
+
+            toast.innerHTML = `
+                ${icon}
+                <div>
+                    <h4 class="font-bold">${title}</h4>
+                    <p class="mt-0.5 text-gray-600 font-medium">${message}</p>
+                </div>
+            `;
+            
+            container.appendChild(toast);
+            
+            // Forçar reflow para ativar animações
+            setTimeout(() => {
+                toast.classList.remove('translate-x-12', 'opacity-0');
+            }, 10);
+
+            // Sumir com o toast
+            setTimeout(() => {
+                toast.classList.add('translate-x-12', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+
+        // Navegação Simples e Reativa entre Views
+        const ALL_VIEWS = ['home', 'onboarding', 'ella', 'mapa', 'oportunidades', 'eventos', 'admin'];
+        function showView(viewId) {
+            // Verificar se usuário está cadastrado antes de abrir IA ou Oportunidades se o fluxo exigir
+            if ((viewId === 'ella' || viewId === 'oportunidades') && !currentUser) {
+                showToast('Acesso Restrito', 'Crie seu cadastro gratuito antes para acessar a IA Ella!', 'error');
+                showView('onboarding');
+                return;
+            }
+
+            ALL_VIEWS.forEach(id => {
+                const el = document.getElementById(`view-${id}`);
+                if (el) el.classList.add('hidden');
+            });
+            document.getElementById(`view-${viewId}`).classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Atualiza navegação ativa se necessário
+            renderState();
+        }
+
+        // Fluxo de Cadastro / Onboarding
+        function handleOnboarding(e) {
+            e.preventDefault();
+            
+            const newUser = {
+                id: Date.now().toString(),
+                nome: document.getElementById('onb-nome').value,
+                empresa: document.getElementById('onb-empresa').value,
+                procura: document.getElementById('onb-procura').value,
+                oferece: document.getElementById('onb-oferece').value,
+                cidade: document.getElementById('onb-cidade').value,
+                bairro: document.getElementById('onb-bairro').value,
+                categoria: document.getElementById('onb-categoria').value,
+                capitalDisponivel: document.getElementById('onb-capital').value,
+                whatsapp: document.getElementById('onb-whatsapp').value,
+                instagram: document.getElementById('onb-instagram').value,
+                descricao: document.getElementById('onb-descricao').value,
+                aprovado: true // Aprovado automaticamente no MVP para fins de validação
+            };
+
+            saveUser(newUser);
+            currentUser = newUser;
+            localStorage.setItem("nexella_current_user", JSON.stringify(currentUser));
+            
+            showToast('Cadastro Concluído!', 'Sua conta unificada Nexella já está ativa. Bem-vinda!', 'success');
+            showView('home');
+        }
+
+        // Ella AI: Cruzador de Parcerias e Conexões Locais
+        function triggerEllaScanner() {
+            if(!currentUser) {
+                showToast('Cadastre-se', 'A Ella precisa analisar suas necessidades. Cadastre-se primeiro!', 'error');
+                showView('onboarding');
+                return;
+            }
+
+            showView('ella');
+            
+            // Preenche dados do perfil esquerdo
+            document.getElementById('ella-user-offers').innerText = currentUser.oferece;
+            document.getElementById('ella-user-seeks').innerText = currentUser.procura;
+            document.getElementById('ella-user-bairro').innerText = currentUser.bairro;
+
+            // Motor de Match Inteligente Nexella
+            const users = getUsers();
+            const resultsContainer = document.getElementById('ella-match-results');
+            resultsContainer.innerHTML = '';
+
+            // Algoritmo de correspondência semântica de MVP
+            // Se o usuário oferece/procura algo similar às categorias ou profissões das outras
+            let matches = users.filter(u => u.id !== currentUser.id && u.aprovado);
+            
+            if (matches.length === 0) {
+                resultsContainer.innerHTML = `
+                    <div class="text-center py-8">
+                        <i class="fa-solid fa-face-empty text-3xl text-gray-300"></i>
+                        <p class="text-xs text-brand-dark mt-2 font-medium">Buscando mais empreendedoras para parcerias...</p>
+                    </div>
+                `;
+                return;
+            }
+
+            matches.forEach(m => {
+                const matchCard = document.createElement('div');
+                matchCard.className = 'p-5 bg-purple-50 rounded-2xl border border-purple-100/50 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 transition-all hover:border-brand-purple/30';
+                matchCard.innerHTML = `
+                    <div class="space-y-1.5 flex-grow">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-bold text-brand-purple">${m.nome}</span>
+                            <span class="text-[9px] bg-brand-purple text-white px-2 py-0.5 rounded-full font-bold uppercase">${m.categoria}</span>
+                        </div>
+                        <h4 class="text-sm font-bold text-brand-purple">${m.profissao} em ${m.bairro}</h4>
+                        <p class="text-xs text-brand-dark text-poppins leading-relaxed">${m.descricao}</p>
+                        <div class="text-[10px] text-brand-purple font-semibold bg-white p-2.5 rounded-xl border border-purple-100/30">
+                            <strong>Busca na Nexella:</strong> ${m.procura}
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 w-full md:w-auto min-w-[120px]">
+                        <a href="https://wa.me/55${m.whatsapp}?text=Olá%20${encodeURIComponent(m.nome)},%20te%20encontrei%20na%20plataforma%20Nexella!%20Bora%20conectar?" target="_blank" class="text-center text-xs bg-[#25D366] text-white p-3 rounded-xl font-bold flex items-center justify-center gap-1.5 hover:bg-opacity-90 transition-all">
+                            <i class="fa-brands fa-whatsapp"></i> Negociar
+                        </a>
+                        <a href="https://instagram.com/${m.instagram.replace('@', '')}" target="_blank" class="text-center text-xs text-brand-purple bg-white border border-purple-100 p-2 rounded-xl font-semibold hover:bg-purple-50 transition-all">
+                            Ver Instagram
+                        </a>
+                    </div>
+                `;
+                resultsContainer.appendChild(matchCard);
+            });
+        }
+
+        function applyMapFilters() {
+            const bFilter = document.getElementById('filter-bairro').value;
+            const cFilter = document.getElementById('filter-categoria').value;
+            const users = getUsers().filter(u => u.aprovado);
+            
+            const listContainer = document.getElementById('map-users-list');
+            listContainer.innerHTML = '';
+
+            const filtered = users.filter(u => {
+                const matchBairro = bFilter === "" || u.bairro === bFilter;
+                const matchCat = cFilter === "" || u.categoria === cFilter;
+                return matchBairro && matchCat;
+            });
+
+            if (filtered.length === 0) {
+                listContainer.innerHTML = `<p class="text-xs text-brand-dark text-center py-8">Nenhuma líder encontrada nos filtros selecionados.</p>`;
+                return;
+            }
+
+            filtered.forEach(u => {
+                const el = document.createElement('div');
+                el.className = 'p-4 rounded-2xl border border-gray-100 bg-gray-50 hover:border-brand-purple/20 transition-all space-y-2 cursor-pointer';
+                el.onclick = () => showToast('Conexão Estabelecida', `Iniciando ponte com ${u.nome}`, 'success');
+                el.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="text-xs font-bold text-brand-purple block">${u.nome}</span>
+                            <span class="text-[9px] font-semibold text-brand-dark uppercase tracking-wider">${u.bairro}</span>
+                        </div>
+                        <span class="text-[9px] bg-purple-50 border border-purple-100 text-brand-purple font-bold px-2 py-0.5 rounded-full uppercase">${u.categoria}</span>
+                    </div>
+                    <p class="text-xs text-brand-dark font-medium">${u.profissao}</p>
+                    <div class="flex gap-2 pt-1.5 border-t border-gray-200">
+                        <a href="https://wa.me/55${u.whatsapp}" target="_blank" class="text-[10px] bg-brand-purple text-white px-2.5 py-1.5 rounded-lg font-bold">Chamar</a>
+                        <a href="https://instagram.com/${u.instagram.replace('@', '')}" target="_blank" class="text-[10px] border border-gray-200 text-brand-dark px-2.5 py-1.5 rounded-lg font-bold bg-white">Instagram</a>
+                    </div>
+                `;
+                listContainer.appendChild(el);
+            });
+        }
+
+        function toggleOpportunityModal(show) {
+            const modal = document.getElementById('modal-opportunity');
+            if (show) modal.classList.remove('hidden');
+            else modal.classList.add('hidden');
+        }
+
+        function handleNewOpportunity(e) {
+            e.preventDefault();
+            const list = JSON.parse(localStorage.getItem("nexella_opportunities")) || [];
+            
+            const newOpp = {
+                id: 'o_' + Date.now(),
+                autora: currentUser ? currentUser.nome : 'Empreendedora Local',
+                titulo: document.getElementById('opp-titulo').value,
+                categoria: document.getElementById('opp-categoria').value,
+                descricao: document.getElementById('opp-descricao').value,
+                data: 'Agora'
+            };
+
+            list.push(newOpp);
+            localStorage.setItem("nexella_opportunities", JSON.stringify(list));
+            toggleOpportunityModal(false);
+            showToast('Oportunidade Publicada!', 'Sua demanda de negócios já está disponível para as líderes.', 'success');
+            renderOpportunities();
+        }
+
+        function renderOpportunities() {
+            const list = JSON.parse(localStorage.getItem("nexella_opportunities")) || [];
+            const grid = document.getElementById('opportunities-grid');
+            grid.innerHTML = '';
+
+            list.forEach(o => {
+                const el = document.createElement('div');
+                el.className = 'bg-white p-6 rounded-3xl border border-gray-100 shadow-sm flex flex-col justify-between hover:shadow-md transition-all';
+                el.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[9px] bg-purple-50 text-brand-purple font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border border-purple-100">${o.categoria}</span>
+                            <span class="text-[9px] text-[#8C8C8C] font-semibold">${o.data}</span>
+                        </div>
+                        <h3 class="text-base font-bold text-brand-purple">${o.titulo}</h3>
+                        <p class="text-xs text-brand-dark mt-2 leading-relaxed text-poppins">${o.descricao}</p>
+                    </div>
+                    <div class="mt-4 border-t border-gray-100 pt-3 flex items-center justify-between">
+                        <span class="text-[10px] text-[#8C8C8C] font-semibold">Por ${o.autora}</span>
+                        <button onclick="showToast('Negociação Iniciada', 'Sua mensagem está sendo encaminhada para ${o.autora}', 'success')" class="text-xs bg-brand-purple text-white px-4 py-2 rounded-full font-bold">Responder</button>
+                    </div>
+                `;
+                grid.appendChild(el);
+            });
+        }
+
+        function renderAdminPanel() {
+            const users = getUsers();
+            const totalUsersEl = document.getElementById('adm-total-users');
+            const pendingUsersEl = document.getElementById('adm-pending-users');
+            const tbody = document.getElementById('admin-table-body');
+            
+            totalUsersEl.innerText = users.length;
+            pendingUsersEl.innerText = users.filter(u => !u.aprovado).length;
+
+            tbody.innerHTML = '';
+
+            users.forEach((u, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="p-4">
+                        <span class="font-bold text-brand-purple block">${u.nome}</span>
+                        <span class="text-[10px] text-brand-dark">${u.empresa || 'Negócio Individual'}</span>
+                    </td>
+                    <td class="p-4">
+                        <span class="block"><strong>Ofe:</strong> ${u.oferece}</span>
+                        <span class="block text-brand-dark"><strong>Pro:</strong> ${u.procura}</span>
+                    </td>
+                    <td class="p-4">${u.bairro}, Cascavel</td>
+                    <td class="p-4 text-center">
+                        <span class="px-2 py-0.5 rounded-full font-bold text-[9px] ${u.aprovado ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}">
+                            ${u.aprovado ? 'Ativa' : 'Pendente'}
+                        </span>
+                    </td>
+                    <td class="p-4 text-center flex justify-center gap-2">
+                        <button onclick="toggleApproveUser('${u.id}')" class="text-brand-purple hover:underline font-bold text-[10px]">Alterar Status</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function toggleApproveUser(id) {
+            let list = getUsers();
+            list = list.map(u => {
+                if(u.id === id) u.aprovado = !u.aprovado;
+                return u;
+            });
+            updateUsersList(list);
+            renderAdminPanel();
+            showToast('Sucesso!', 'Status do cadastro atualizado.', 'success');
+        }
+
+        function resetAllData() {
+            localStorage.clear();
+            localStorage.setItem("nexella_users", JSON.stringify(DEFAULT_USERS));
+            localStorage.setItem("nexella_opportunities", JSON.stringify(DEFAULT_OPPORTUNITIES));
+            currentUser = null;
+            location.reload();
+        }
+
+        function registerEvent() {
+            showToast('Inscrição confirmada!', 'Seu assento para o próximo Café & Negócios está garantido.', 'success');
+        }
+
+        function renderState() {
+            // Se o usuário estiver logado, atualiza o badge
+            const badge = document.getElementById('user-profile-badge');
+            const btnLogin = document.getElementById('btn-login-header');
+            
+            if (currentUser) {
+                badge.classList.remove('hidden');
+                badge.classList.add('flex');
+                btnLogin.classList.add('hidden');
+                document.getElementById('badge-name').innerText = currentUser.nome.split(' ')[0];
+            } else {
+                badge.classList.remove('flex');
+                badge.classList.add('hidden');
+                btnLogin.classList.remove('hidden');
+            }
+
+            // Quick Matches na Home
+            const quickMatchesContainer = document.getElementById('quick-matches');
+            if (quickMatchesContainer) {
+                quickMatchesContainer.innerHTML = '';
+                const users = getUsers();
+                // Exibe no máximo 3 sugestões
+                users.slice(0, 3).forEach(u => {
+                    const row = document.createElement('div');
+                    row.className = 'flex items-center justify-between border-b border-gray-100 pb-2 text-xs';
+                    row.innerHTML = `
+                        <div>
+                            <span class="font-semibold text-brand-purple block">${u.nome}</span>
+                            <span class="text-[10px] text-brand-dark">${u.profissao.slice(0, 25)}...</span>
+                        </div>
+                        <button onclick="showView('mapa')" class="text-[10px] text-brand-purple hover:underline font-bold">Conectar</button>
+                    `;
+                    quickMatchesContainer.appendChild(row);
+                });
+            }
+
+            // Atualiza estatísticas locais
+            const nearbyEl = document.getElementById('nearby-count');
+            if (nearbyEl) {
+                nearbyEl.innerText = getUsers().filter(u => u.aprovado).length;
+            }
+
+            // Executa renderers adicionais
+            applyMapFilters();
+            renderOpportunities();
+            renderAdminPanel();
+        }
+
+        // Inicialização de Estado no Carregamento
+        window.onload = function() {
+            renderState();
+            showView('home');
+        };
+    </script>
+</body>
+</html>
